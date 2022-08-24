@@ -48,8 +48,6 @@ var saveTasks = function() {
 var auditTask = function(taskEl) {
   // get date from task element
   var date = $(taskEl).find("span").text().trim();
-  // ensure it worked
-  console.log(date);
 
   // convert to moment object at 5:00pm
   var time = moment(date, "L").set("hour", 17);
@@ -238,7 +236,6 @@ $(".card .list-group").sortable({
         date: date
       });
     });
-    console.log(tempArr);
     // trim down list's ID to match object property
     var arrName = $(this)
       .attr("id")
@@ -271,5 +268,11 @@ $("#modalDueDate").datepicker({
 
 // load tasks for the first time
 loadTasks();
+
+setInterval (function() {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);
 
 
